@@ -64,7 +64,7 @@
         @php
             $currentUrl = request()->url();
             // $requirementAddUrl = route('requirement-view');
-            $projectAddUrl = route('add-project');  
+            $projectAddUrl = url('projects/create');  
         @endphp
 
         @if (Auth::user()->role == 'Super Admin')

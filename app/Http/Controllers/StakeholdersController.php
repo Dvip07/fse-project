@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRequirementsRequest;
-use App\Http\Requests\UpdateRequirementsRequest;
-use App\Models\Requirements;
+use App\Http\Requests\StoreStakeholdersRequest;
+use App\Http\Requests\UpdateStakeholdersRequest;
+use App\Models\Stakeholders;
 
-class RequirementsController extends Controller
+class StakeholdersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,13 +21,13 @@ class RequirementsController extends Controller
      */
     public function create()
     {
-        return view('requirements.create');
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequirementsRequest $request)
+    public function store(StoreStakeholdersRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class RequirementsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Requirements $requirements)
+    public function show(Stakeholders $stakeholders)
     {
         //
     }
@@ -43,7 +43,7 @@ class RequirementsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Requirements $requirements)
+    public function edit(Stakeholders $stakeholders)
     {
         //
     }
@@ -51,7 +51,7 @@ class RequirementsController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateRequirementsRequest $request, Requirements $requirements)
+    public function update(UpdateStakeholdersRequest $request, Stakeholders $stakeholders)
     {
         //
     }
@@ -59,7 +59,7 @@ class RequirementsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Requirements $requirements)
+    public function destroy(Stakeholders $stakeholders)
     {
         //
     }

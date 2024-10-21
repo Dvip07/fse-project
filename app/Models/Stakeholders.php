@@ -6,19 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Requirements extends Model
-{
+class Stakeholders extends Model
+{ 
     use SoftDeletes;
 
-    public $table = 'requirements';
-
+    public $table = 'stakeholders';
     protected $fillable = [
         'project_id',
-        'title',
-        'desc',
-        'priority',
-        'status',
-        'created_by',
+        'user_id',
+        'role',
     ];
 
     use HasFactory;
@@ -30,11 +26,6 @@ class Requirements extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'created_by');
-    }
-
-    public function stakeholders()
-    {
-        return $this->hasMany(Stakeholders::class, 'project_id', 'project_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
