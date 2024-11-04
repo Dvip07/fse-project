@@ -6,7 +6,10 @@ use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\authenticate\AuthLogin;
 use App\Http\Controllers\Auth\LoginRegistrationController;
 use App\Http\Controllers\Dashboard\DashboardController;
+
+// Pages Controller
 use App\Http\Controllers\ProjectsController;
+use App\Http\Controllers\UserController;
 
 date_default_timezone_set('Asia/Kolkata');
 Route::get('/refresh', function () {
@@ -33,4 +36,6 @@ Route::middleware([EnsureTokenIsValid::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'crm'])->name('dashboard-crm');
 
     Route::resource('/projects' , ProjectsController::class);
+
+    Route::resource('/users', UserController::class);
 });

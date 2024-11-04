@@ -10,7 +10,20 @@ class Projects extends Model
     protected $fillable = [
         'name',
         'desc',
+        'milestone',
+        'non_functional_req',
+        'additional_instruction',
+        'domain',
+        'dev_methods',
+        'tech_stack',
+        'survey_methods',
         'user_id',
     ];
     use HasFactory;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    
 }

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProjectsRequest;
 use App\Http\Requests\UpdateProjectsRequest;
 use App\Models\Projects;
+use App\Models\Stakeholders;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class ProjectsController extends Controller
 {
@@ -13,7 +16,7 @@ class ProjectsController extends Controller
      */
     public function index()
     {
-        //
+        return view('projects.view');
     }
 
     /**
@@ -21,7 +24,9 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('projects.create');
+        $users = User::where('role', '!=', 'Super Admin')->get();
+
+        return view('projects.create', compact('users'));
     }
 
     /**
@@ -29,24 +34,39 @@ class ProjectsController extends Controller
      */
     public function store(StoreProjectsRequest $request)
     {
-        $validatedData = $request->validate([
-            'projectName' => 'required|string|max:255',
-            'stakeholders' => 'required|array',
-            'projectDescription' => 'required|string',
+        $validatedData = $request->validated();
+        $user_id = Auth::user()->id;
+        
+        $project = Projects::create([
+            'name' => $validatedData['name'],
+            'desc' => $validatedData['desc'],
+            'domain' => implode(',', $validatedData['domain']),
+            'tech_stack' => $validatedData['tech_stack'],
+            'dev_methods' => implode(',', $validatedData['dev_methods']),
+            'survey_methods' => implode(',', $validatedData['surveyMethod']),
+            'non_functional_requirements' => $validatedData['nonFunctional'],
+            'milestone' => $validatedData['milestone'],
+            'additional_instruction' => $validatedData['additional_instruction'],
+            'user_id' => $user_id,
         ]);
-
-        $project = Projects::create($validatedData);
-
-        $project = Stakeholders::create($validatedData);
     
         if ($project) {
-            return redirect()->route('projects.index')->with('success', 'Project created successfully!');
-        } else {            
+            // Save each stakeholder entry
+            foreach($validatedData['stakeholderName'] as $index => $stakeholderName) {
+                Stakeholders::create([
+                    'project_id' => $project->id,
+                    'user_id' => $validatedData['user_id'][$index] ?? '1',
+                    'role' => $validatedData['stakeholdersRole'][$index],
+                ]);
+            } 
+    
+            return redirect()->route('projects.index')->with('success', 'Project and stakeholders created successfully!');
+        } else {
             return back()->withErrors($request)->withInput();
         }
     }
-
     
+
 
     /**
      * Display the specified resource.

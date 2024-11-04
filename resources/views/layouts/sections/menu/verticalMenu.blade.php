@@ -65,6 +65,8 @@
             $currentUrl = request()->url();
             // $requirementAddUrl = route('requirement-view');
             $projectAddUrl = url('projects/create');  
+            $projectViewUrl = route('projects.index');
+            $usersListUrl = route('users.index');
         @endphp
 
         @if (Auth::user()->role == 'Super Admin')
@@ -86,7 +88,7 @@
             </li>
         @endif --}}
 
-        @if (Auth::user()->role == 'Super Admin' || Auth::user()->role == 'warehouse')
+        @if (Auth::user()->role == 'Super Admin' || Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Manager')
             {{-- <li class="menu-item {{ $currentUrl == $requirementAddUrl ? 'active' : '' }}">
                 <a href="{{ $requirementAddUrl }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-menu"></i><i class=""></i>
@@ -104,12 +106,35 @@
                             <div>Add</div>
                         </a>
                     </li>
-                    <li class="menu-item ">
-                        <a href="" class="menu-link">
+                    <li class="menu-item {{ $currentUrl == $projectViewUrl ? 'active' : '' }} ">
+                        <a href="{{ $projectViewUrl }}" class="menu-link">
                             <div>List</div>
                         </a>
                     </li>
                 </ul>
+            </li>
+
+            <li class="menu-item ">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-book"></i>
+                    <div>Users</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ $currentUrl == $usersListUrl ? 'active' : '' }}">
+                        <a href="{{ $usersListUrl }}" class="menu-link">
+                            <div>View</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+        @endif
+
+        @if(Auth::user()->role == 'Developer' || Auth::user()->role == 'Designer' || Auth::user()->role == 'Tester')
+            <li class="menu-item ">
+                <a href="" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-truck"></i>
+                    <div>Requirement</div>
+                </a>
             </li>
         @endif
 

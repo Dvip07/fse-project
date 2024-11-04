@@ -11,7 +11,7 @@ class StoreProjectsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,17 @@ class StoreProjectsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'domain' => 'required',
+            'tech_stack' => 'required',
+            'dev_methods' => 'required',
+            'milestone' => 'required',
+            'additional_instruction' => 'nullable|string',
+            'nonFunctional' => 'nullable|string',
+            'surveyMethod' => 'required',
+            'stakeholderName' => 'required',
+            'stakeholdersRole' => 'required',
         ];
     }
 }
