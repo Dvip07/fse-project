@@ -54,7 +54,7 @@ class ProjectsController extends Controller
             // Save each stakeholder entry
             foreach($validatedData['stakeholderName'] as $index => $stakeholderName) {
                 Stakeholders::create([
-                    'project_id' => $project->id,
+                    'projects_id' => $project->id,
                     'user_id' => $validatedData['user_id'][$index] ?? '1',
                     'role' => $validatedData['stakeholdersRole'][$index],
                 ]);
@@ -71,9 +71,11 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Projects $projects)
+    public function show(Projects $projects, $id)
     {
-        //
+        $projects = Projects::with('stakeholders.user', 'user')->where('id', $id)->first();
+        // dd($projects);
+        return view('projects.developerView', compact('projects'));
     }
 
     /**

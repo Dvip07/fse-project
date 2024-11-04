@@ -47,10 +47,15 @@
                             <td class="text-bold"><a href="">{{ $num }}</a></td>
                             <td>{{ $projects->name }}</td>
                             <td>
+                                @if (Auth::user()->role == 'Super Admin' || Auth::user()->role == 'Project Manager')
                                 <a class="btn btn-icon btn-label-primary mx-2" href="{{ route('projects.edit', $projects->id) }}"><i
                                         class="ti ti-edit mx-2 ti-sm"></i></a>
                                 <button type="button" class="btn btn-icon btn-label-danger mx-2" onclick="deleteBrand({{ $projects->id }})"><i
                                         class="ti ti-trash mx-2 ti-sm"></i></button>
+                                       @elseif(Auth::user()->role == 'Developer' || Auth::user()->role == 'Tester' || Auth::user()->role == 'Designer')
+                                       <a class="btn btn-icon btn-label-primary mx-2" href="{{ route('projects.show', $projects) }}"><i
+                                        class="ti ti-eye mx-2 ti-sm"></i></a>
+                                        @endif
                             </td>
                         </tr>
                         @php $num++ @endphp

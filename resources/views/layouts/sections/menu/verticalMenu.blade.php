@@ -132,11 +132,40 @@
         @if(Auth::user()->role == 'Developer' || Auth::user()->role == 'Designer' || Auth::user()->role == 'Tester')
             <li class="menu-item ">
                 <a href="" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-truck"></i>
-                    <div>Requirement</div>
+                    <i class="menu-icon tf-icons ti ti-home"></i>
+                    <div>Dashboard</div>
                 </a>
             </li>
+            <li class="menu-item ">
+                <a href="javascript:void(0);" class="menu-link menu-toggle">
+                    <i class="menu-icon tf-icons ti ti-book"></i>
+                    <div>Projects</div>
+                </a>
+                <ul class="menu-sub">
+                    <li class="menu-item {{ $currentUrl == $projectViewUrl ? 'active' : '' }}">
+                        <a href="{{ $projectViewUrl }}" class="menu-link">
+                            <div>View</div>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         @endif
+
+        @if(Auth::user()->role == 'Other Stakeholder' || Auth::user()->role == 'Investor')
+        <li class="menu-item ">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons ti ti-book"></i>
+                <div>Projects</div>
+            </a>
+            <ul class="menu-sub">
+                <li class="menu-item {{ $currentUrl == $projectViewUrl ? 'active' : '' }}">
+                    <a href="{{ $projectViewUrl }}" class="menu-link">
+                        <div>View</div>
+                    </a>
+                </li>
+            </ul>
+        </li>
+    @endif
 
 
 

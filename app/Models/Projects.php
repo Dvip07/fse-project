@@ -26,4 +26,8 @@ class Projects extends Model
         return $this->belongsTo(User::class);
     }
     
+    public function stakeholders()
+    {
+        return $this->hasMany(Stakeholders::class);
+    }
 }

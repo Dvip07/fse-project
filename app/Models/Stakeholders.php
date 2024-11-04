@@ -12,7 +12,7 @@ class Stakeholders extends Model
 
     public $table = 'stakeholders';
     protected $fillable = [
-        'project_id',
+        'projects_id',
         'user_id',
         'role',
     ];
@@ -21,7 +21,7 @@ class Stakeholders extends Model
 
     public function project()
     {
-        return $this->belongsTo(Projects::class, 'project_id');
+        return $this->belongsTo(Projects::class, 'projects_id');
     }
 
     public function user()
