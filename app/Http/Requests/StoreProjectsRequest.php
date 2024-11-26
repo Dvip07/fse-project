@@ -32,7 +32,7 @@ class StoreProjectsRequest extends FormRequest
             'nonFunctional' => 'nullable|string',
             'surveyMethod' => 'required',
             'stakeholderName' => 'required',
-            'stakeholdersRole' => 'required',
+            // 'stakeholdersRole' => 'required',
         ];
     }
 }

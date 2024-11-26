@@ -28,6 +28,21 @@
 
 @section('content')
 
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Project Summary by GPT-4</h5>
+            {{-- <p>{{ $gptResponse }}</p> --}}
+        </div>
+    </div>
+
+
+    {{-- @if ($gptResponse)
+    <p>{{ $gptResponse }}</p>
+@else
+    <p>We are unable to fetch AI-generated content at this time. Please try again later.</p>
+@endif --}}
+
+
     <div class="content-wrapper">
         <!-- Content -->
 
@@ -253,158 +268,167 @@
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="tab-pane fade show active" id="navs-pills-justified-profile" role="tabpanel">
                                 <div class="row">
                                     <!-- To-Do Column -->
-                                    <div
+                                    {{-- <div class="col-md-4"> --}}
+                                        
+                                        <div
                                         class="{{ Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' ? 'col-md-3' : 'col-md-4' }}">
                                         <div class="fw-bold h4 p-3">To-Do List</div>
-                                        <div id="to-do-list" class="card-container">
-                                            {{-- @foreach ($tasks['to_do'] as $task) --}}
-                                            <div class="card p-2 mb-2" data-task-id="{{ $task->id ?? '0' }}">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $task->title ?? 'Task title' }}</h5>
-                                                    <p class="card-text">{{ $task->description ?? 'Task Description' }}
-                                                    </p>
-                                                    {{-- @if (in_array(Auth::user()->role, ['Admin', 'Super Admin'])) --}}
-                                                    <p class="card-text"><small>Assigned to:
-                                                            {{ $task->assigned_user ?? 'Assigned' }}</small></p>
-                                                    {{-- @endif --}}
+                                        <div id="to-do-list" class="card-container"
+                                            data-editable="{{ Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' ? 'true' : 'false' }}">
+                                            @foreach ($wbsRequirements['to_do'] as $task)
+                                                <div class="card p-2 mb-2" data-task-id="{{ $task->id }}">
+                                                    <div class="card-body">
+                                                        <p class="card-text">{{ $task->response ?? 'Task Description' }}
+                                                        </p>
+                                                        <p class="card-text"><small>Assigned to:
+                                                                {{ $task->assigned_user ?? 'Assigned' }}</small></p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            {{-- @endforeach --}}
+                                            @endforeach
                                         </div>
                                     </div>
 
                                     <!-- In Progress Column -->
-                                    <div
+                                    {{-- <div class="col-md-4"> --}}
+                                        <div
                                         class="{{ Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' ? 'col-md-3' : 'col-md-4' }}">
                                         <div class="fw-bold h4 p-3">In Progress</div>
-                                        <div id="in-progress-list" class="card-container">
-                                            {{-- @foreach ($tasks['in_progress'] as $task) --}}
-                                            <div class="card p-2 mb-2" data-task-id="{{ $task->id ?? '0' }}">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $task->title ?? 'task-title2' }}</h5>
-                                                    <p class="card-text">{{ $task->description ?? 'task-desc2' }}</p>
-                                                    {{-- @if (in_array(Auth::user()->role, ['Admin', 'Super Admin'])) --}}
-                                                    <p class="card-text"><small>Assigned to:
-                                                            {{ $task->assigned_user ?? 'user2' }}</small></p>
-                                                    {{-- @endif --}}
+                                        <div id="in-progress-list" class="card-container"
+                                            data-editable="{{ Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' ? 'true' : 'false' }}">
+                                            @foreach ($wbsRequirements['in_progress'] as $task)
+                                                <div class="card p-2 mb-2" data-task-id="{{ $task->id }}">
+                                                    <div class="card-body">
+                                                        <p class="card-text">{{ $task->response ?? 'Task Description' }}
+                                                        </p>
+                                                        <p class="card-text"><small>Assigned to:
+                                                                {{ $task->assigned_user ?? 'Assigned' }}</small></p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            {{-- @endforeach --}}
+                                            @endforeach
                                         </div>
                                     </div>
 
                                     <!-- Completed Column -->
-                                    <div
+                                    {{-- <div class="col-md-4"> --}}
+                                        <div
                                         class="{{ Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' ? 'col-md-3' : 'col-md-4' }}">
                                         <div class="fw-bold h4 p-3">Completed</div>
-                                        <div id="completed-list" class="card-container">
-                                            {{-- @foreach ($tasks['completed'] as $task) --}}
-                                            <div class="card p-2 mb-2" data-task-id="{{ $task->id ?? '3' }}">
-                                                <div class="card-body">
-                                                    <h5 class="card-title">{{ $task->title ?? 'task-title23' }}</h5>
-                                                    <p class="card-text">{{ $task->description ?? 'task_desc3' }}</p>
-                                                    {{-- @if (in_array(Auth::user()->role, ['Admin', 'Super Admin'])) --}}
-                                                    <p class="card-text"><small>Assigned to:
-                                                            {{ $task->assigned_user ?? '3' }}</small></p>
-                                                    {{-- @endif --}}
+                                        <div id="completed-list" class="card-container"
+                                            data-editable="{{ Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' ? 'true' : 'false' }}">
+                                            @foreach ($wbsRequirements['completed'] as $task)
+                                                <div class="card p-2 mb-2" data-task-id="{{ $task->id }}">
+                                                    <div class="card-body">
+                                                        <p class="card-text">{{ $task->response ?? 'Task Description' }}
+                                                        </p>
+                                                        <p class="card-text"><small>Assigned to:
+                                                                {{ $task->assigned_user ?? 'Assigned' }}</small></p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            {{-- @endforeach --}}
+                                            @endforeach
                                         </div>
                                     </div>
 
-                                    @if (Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin')
+                                    @if (Auth::user()->role == 'Project Manager' || Auth::user()->role == 'Super Admin' || Auth::user()->role == 'Investor')
                                         <div class="col-md-3">
                                             <div class="fw-bold h4 p-3">
                                                 Add Task
                                             </div>
                                             <!-- Add Task Form or Button -->
-                                            <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal" data-bs-target="#addNewTask">+ Add New Task</button>
+                                            <button class="btn btn-primary mt-3" type="button" data-bs-toggle="modal"
+                                                data-bs-target="#addNewTask">+ Add New Task</button>
                                         </div>
                                     @endif
 
                                     <div class="modal fade" id="addNewTask" tabindex="-1" aria-hidden="true">
                                         <div class="modal-dialog modal-lg modal-simple modal-add-new-task">
-                                          <div class="modal-content p-3 p-md-5">
-                                            <div class="modal-body">
-                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                              <div class="text-center mb-4">
-                                                <h3 class="mb-2">Edit User Information</h3>
-                                                <p class="text-muted">Updating user details will receive a privacy audit.</p>
-                                              </div>
-                                              <form id="editUserForm" action="{{ route('requirements.store')}}" enctype="multipart/form-data" class="row g-3" onsubmit="return false">
-                                                <div class="col-12 col-md-12">
-                                                  <label class="form-label" for="modalEditUserFirstName">Project Name</label>
-                                                  <input
-                                                    type="text"
-                                                    id="modalEditUserFirstName"
-                                                    name="modalEditUserFirstName"
-                                                    class="form-control"
-                                                    value="{{$projects->name}}" disabled/>
+                                            <div class="modal-content p-3 p-md-5">
+                                                <div class="modal-body">
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
+                                                    <div class="text-center mb-4">
+                                                        <h3 class="mb-2">Add New Requirement</h3>
+                                                        <p class="text-muted">Updating user details will receive a privacy
+                                                            audit.</p>
+                                                    </div>
+                                                    <form id="editUserForm" method="POST"
+                                                        action="{{ route('requirements.store') }}"
+                                                        enctype="multipart/form-data" class="row g-3">
+                                                        @csrf
+                                                        @php
+                                                            $userId = Auth::user()->id;
+                                                            $projectId = $projects->id;
+                                                        @endphp
+                                                        <input type="hidden" name="user_id"
+                                                            value="{{ $userId }}">
+                                                        <input type="hidden" name="projectId"
+                                                            value="{{ $projectId }}">
+                                                        <div class="col-12 col-md-12">
+                                                            <label class="form-label" for="modalEditUserFirstName">Project
+                                                                Name</label>
+                                                            <input type="text" id="modalEditUserFirstName"
+                                                                name="projectName" class="form-control"
+                                                                value="{{ $projects->name }}" disabled />
+                                                        </div>
+                                                        <div class="col-12 col-md-12">
+                                                            <label class="form-label"
+                                                                for="modalEditUserFirstName">Requirement Title</label>
+                                                            <input type="text" id="modalEditUserFirstName"
+                                                                name="requirementTitle" class="form-control"
+                                                                placeholder="Put your Requirement Title" />
+                                                        </div>
+                                                        <div class="col-12 col-md-12">
+                                                            <label class="form-label"
+                                                                for="bootstrap-maxlength-example2">Description</label>
+                                                            <textarea id="bootstrap-maxlength-example2" class="form-control bootstrap-maxlength-example"
+                                                                name="requirementDescription" rows="3" maxlength="255"></textarea>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <label class="form-label"
+                                                                for="modalEditUserStatus">Priority</label>
+                                                            <select id="modalEditUserStatus" name="requirementPriority"
+                                                                class="select2 form-select"
+                                                                aria-label="Default select example">
+                                                                <option selected disabled>Priority</option>
+                                                                <option value="1">Low</option>
+                                                                <option value="2">Medium</option>
+                                                                <option value="3">High</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <label class="form-label" for="relatedTask">Related Task
+                                                                (Optional)</label>
+                                                            <select id="relatedTask" name="relatedTask"
+                                                                class="select2 form-select"
+                                                                aria-label="Default select example">
+                                                                <option selected disabled>Tasks List</option>
+                                                                @foreach ($wbsRequirements['to_do'] as $task)
+                                                                    <option value="{{ $task->id }}">
+                                                                        {{ $task->response }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 text-center">
+                                                            <button type="submit"
+                                                                class="btn btn-primary me-sm-3 me-1">Submit</button>
+                                                            <button type="button" class="btn btn-label-secondary"
+                                                                data-bs-dismiss="modal" aria-label="Close">
+                                                                Cancel
+                                                            </button>
+                                                        </div>
+                                                    </form>
                                                 </div>
-                                                <div class="col-12 col-md-12">
-                                                    <label class="form-label" for="modalEditUserFirstName">Requirement Title</label>
-                                                    <input
-                                                      type="text"
-                                                      id="modalEditUserFirstName"
-                                                      name="modalEditUserFirstName"
-                                                      class="form-control"
-                                                      placeholder="Put your Requirement Title"/>
-                                                  </div>
-                                                <div class="col-12 col-md-12">
-                                                    <label class="form-label" for="bootstrap-maxlength-example2">Textarea</label>
-                                                    <textarea
-                                                      id="bootstrap-maxlength-example2"
-                                                      class="form-control bootstrap-maxlength-example"
-                                                      rows="3"
-                                                      maxlength="255"></textarea>
-                                                  </div>
-                                                <div class="col-12 col-md-6">
-                                                  <label class="form-label" for="modalEditUserStatus">Priority</label>
-                                                  <select
-                                                    id="modalEditUserStatus"
-                                                    name="modalEditUserStatus"
-                                                    class="select2 form-select"
-                                                    aria-label="Default select example">
-                                                    <option selected disabled>Status</option>
-                                                    <option value="1">Low</option>
-                                                    <option value="2">Medium</option>
-                                                    <option value="3">High</option>
-                                                  </select>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <label class="form-label" for="modalEditUserStatus">Related Task (Optional)</label>
-                                                    <select
-                                                      id="modalEditUserStatus"
-                                                      name="modalEditUserStatus"
-                                                      class="select2 form-select"
-                                                      aria-label="Default select example">
-                                                      <option selected disabled>Tasks List</option>
-                                                      <option value="1">Hello</option>
-                                                      <option value="2">Medium</option>
-                                                      <option value="3">High</option>
-                                                    </select>
-                                                  </div>
-                                                <div class="col-12 text-center">
-                                                  <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
-                                                  <button
-                                                    type="reset"
-                                                    class="btn btn-label-secondary"
-                                                    data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    Cancel
-                                                  </button>
-                                                </div>
-                                              </form>
                                             </div>
-                                          </div>
                                         </div>
-                                      </div>
+                                    </div>
                                 </div>
                             </div>
+
+
 
 
                             <div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
@@ -433,52 +457,57 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Initialize SortableJS on each column
+            // Get the lists
             const toDoList = document.getElementById('to-do-list');
             const inProgressList = document.getElementById('in-progress-list');
             const completedList = document.getElementById('completed-list');
 
-            // Common options for all columns
-            const sortableOptions = {
-                group: 'tasks', // Set group to enable drag-and-drop between columns
-                animation: 150,
-                onEnd: async function(evt) {
-                    const taskId = evt.item.dataset.taskId;
-                    const newStatus = evt.to.id; // 'to-do-list', 'in-progress-list', 'completed-list'
+            // Function to initialize SortableJS only for editable lists
+            const initializeSortable = (list) => {
+                if (list && list.dataset.editable === "true") {
+                    new Sortable(list, {
+                        group: 'tasks', // Set group to enable drag-and-drop between columns
+                        animation: 150,
+                        onEnd: async function(evt) {
+                            const taskId = evt.item.dataset.taskId;
+                            const newStatus = evt.to
+                                .id; // 'to-do-list', 'in-progress-list', 'completed-list'
 
-                    // Determine the new status based on the destination list
-                    let status;
-                    if (newStatus === 'to-do-list') status = 'to_do';
-                    if (newStatus === 'in-progress-list') status = 'in_progress';
-                    if (newStatus === 'completed-list') status = 'completed';
+                            // Determine the new status based on the destination list
+                            let status;
+                            if (newStatus === 'to-do-list') status = 'to_do';
+                            if (newStatus === 'in-progress-list') status = 'in_progress';
+                            if (newStatus === 'completed-list') status = 'completed';
 
-                    // Send AJAX request to update task status in the backend
-                    try {
-                        const response = await fetch(`/tasks/update-status/${taskId}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                            },
-                            body: JSON.stringify({
-                                status: status
-                            }),
-                        });
+                            // Send AJAX request to update task status in the backend
+                            try {
+                                const response = await fetch(`/tasks/update-status/${taskId}`, {
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                                    },
+                                    body: JSON.stringify({
+                                        status: status
+                                    }),
+                                });
 
-                        const result = await response.json();
-                        if (!result.success) {
-                            console.error("Error updating task status.");
+                                const result = await response.json();
+                                if (!result.success) {
+                                    console.error("Error updating task status.");
+                                }
+                            } catch (error) {
+                                console.error("Failed to update task status:", error);
+                            }
                         }
-                    } catch (error) {
-                        console.error("Failed to update task status:", error);
-                    }
+                    });
                 }
             };
 
-            // Apply Sortable to each column
-            new Sortable(toDoList, sortableOptions);
-            new Sortable(inProgressList, sortableOptions);
-            new Sortable(completedList, sortableOptions);
+            // Initialize Sortable for each list only if editable
+            initializeSortable(toDoList);
+            initializeSortable(inProgressList);
+            initializeSortable(completedList);
         });
     </script>
 

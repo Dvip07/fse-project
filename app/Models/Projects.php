@@ -30,4 +30,9 @@ class Projects extends Model
     {
         return $this->hasMany(Stakeholders::class);
     }
+
+    public function ai_response()
+    {
+        return $this->hasMany(AIResponse::class);
+    }
 }
