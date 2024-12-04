@@ -18,7 +18,7 @@ class GPTService
         $this->endpoint = 'https://api.openai.com/v1/chat/completions';
     }
 
-    public $apiKey = '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';
+    public $apiKey = '';
 
     // public function processMessage($prompt, $maxTokens = 1000)
     // {
